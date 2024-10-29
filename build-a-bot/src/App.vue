@@ -3,28 +3,36 @@
     <nav>
       <ul>
         <li class="nav-item">
-          <img class="logo" src="./assets/build-a-bot-logo.png" alt="">
-          Build-A-Bot
+          <router-link class="nav-link" :to="{name: 'Home'}">
+            <img class="logo" src="./assets/build-a-bot-logo.png" alt="">
+            Build-A-Bot
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" :to="{name: 'Build'}">
+            <img class="logo" src="./assets/build-a-bot-logo.png" alt="">
+            Build
+          </router-link>
         </li>
       </ul>
     </nav>
   </header>
-  <main>
-    <!-- <SearchRobot /> -->
-    <RobotBuilder/>
-  </main>
+
+  <div class="container">
+    <aside class="aside">
+      <router-view  name="sidebar"/>
+    </aside>
+    <main>
+      <!-- <SearchRobot /> -->
+      <router-view/>
+    </main>
+  </div>
 </template>
 
 <script>
 
-import RobotBuilder from './build/RobotBuilder.vue';
-// import SearchRobot from './search/SearchRobot.vue';
-
 export default {
   name: 'App',
-  components: {
-    RobotBuilder,
-  },
   // data() {
   //   return {
   //     userName: 'Jim',
@@ -52,15 +60,14 @@ body {
   margin-top: 60px;
 }
 main{
-  margin: 0 auto;
   padding: 30px;
   background-color: white;
-  width: 1024px;
+  width: 964px;
   min-height: 300px;
 }
 header {
   background-color: #999;
-  width: 1084px;
+  width: 1184px;
   margin: 0 auto;
 }
 ul {
@@ -76,5 +83,25 @@ ul {
 .logo {
   vertical-align: middle;
   height: 30px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.router-link-active {
+  color: red;
+}
+.container {
+  display: flex;
+  margin: 10px auto 0 auto;
+  justify-content: center;
+}
+.aside {
+  padding: 30px;
+  background-color: #aaa;
+  width: 100px;
+  min-height: 300px;
 }
 </style>
