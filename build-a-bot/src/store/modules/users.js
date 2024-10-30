@@ -3,6 +3,7 @@ import axios from 'axios';
 export default {
   state: {
     user: null,
+    foo: 'users-foo',
   },
   mutations: {
     updateCurrentUser(state, user) {
@@ -10,6 +11,10 @@ export default {
     },
   },
   getters: {
+    foo(state, getters, rootState) {
+      // eslint-disable-next-line no-template-curly-in-string
+      return 'users-getter/${state.foo}';
+    },
   },
   actions: {
     signIn({ commit }) {
@@ -17,5 +22,8 @@ export default {
         .then((result) => commit('updateCurrentUser', result.data))
         .catch(console.error);
     },
+  },
+  addRobotToCart() {
+    console.log('User addRobotToCart');
   },
 };

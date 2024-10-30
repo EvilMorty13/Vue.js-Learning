@@ -1,9 +1,11 @@
 import axios from 'axios';
 
 export default ({
+  namespaced: true,
   state: {
     cart: [],
     parts: null,
+    foo: 'robots-foo',
   },
   mutations: {
     addRobotToCart(state, robot) {
@@ -26,6 +28,10 @@ export default ({
   getters: {
     cartSaleItems(state) {
       return state.cart.filter((item) => item.head.onSale);
+    },
+    foo(state) {
+      // eslint-disable-next-line no-template-curly-in-string
+      return 'robots-getter/${state.foo}';
     },
   },
 });
