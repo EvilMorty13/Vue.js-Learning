@@ -1,5 +1,5 @@
 <template>
-    <div class="content">
+    <div v-if="availableParts" class="content">
       <!-- <div class="part-info" id="partInfo"></div> -->
       <div class="preview">
       <CollapsibleSection>
@@ -47,33 +47,18 @@
             @partSelected="part => selectedRobot.base=part"/>
         </div>
   </div>
-  <div>
-    <h1>Cart</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Robot</th>
-                <th class="cost">Cost</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(robot, index) in cart" :key="index">
-                <td>{{ robot.head.title }}</td>
-                <td class="cost">{{ robot.cost }}</td>
-            </tr>
-        </tbody>
-    </table>
-  </div>
 </template>
 
 <script>
 import CollapsibleSection from '@/shared/CollapsibleSection.vue';
-import availableParts from '../data/parts';
 import createdHookMixin from './created-hook-mixin';
 import PartSelector from './PartSelector.vue';
 
 export default {
   name: 'RobotBuilder',
+  created() {
+    this.$store.dispatch('getParts');
+  },
   beforeRouteLeave(to, from, next) {
     if (this.addedToCart) {
       next(true);
@@ -87,7 +72,6 @@ export default {
   components: { PartSelector, CollapsibleSection },
   data() {
     return {
-      availableParts,
       addedToCart: false,
       cart: [],
       selectedRobot: {
@@ -101,6 +85,9 @@ export default {
   },
   mixins: [createdHookMixin],
   computed: {
+    availableParts() {
+      return this.$store.state.robots.parts;
+    },
     saleBorderClass() {
       return this.selectedRobot.head.onSale ? 'sale-border' : '';
     },
@@ -114,7 +101,7 @@ export default {
       const robot = this.selectedRobot;
       const cost = robot.head.cost + robot.leftArm.cost + robot.torso.cost
         + robot.rightArm.cost + robot.base.cost;
-      this.cart.push({ ...robot, cost });
+      this.$store.dispatch('addRobotToCart', { ...robot, cost }).then(() => this.$router.push('/cart'));
       this.addedToCart = true;
     },
   },
@@ -228,14 +215,6 @@ export default {
     width: 210px;
     padding: 3px;
     font-size: 16px;
-}
-td, th {
-    text-align: right;
-    padding: 5px;
-    padding-right: 20px;
-}
-.cost {
-    text-align: right;
 }
 
 .sale-border {
