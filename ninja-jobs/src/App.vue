@@ -58,7 +58,7 @@ button {
   border-radius: 20px;
   margin: 0 10px;           
   padding: 10px;                              
-  transition: 0.3s;   
+  transition: 0.3s ;   
   border-color: #7300ff;               
 }
 
