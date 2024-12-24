@@ -38,7 +38,8 @@ export const usePostsStore = defineStore('posts-store',{
   getters:{
     sorted() {
       return this.posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-    }
+    },
+    saved: (state) => state.posts.filter(p=>p.is_saved).sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
   },
   //Methods
   actions: {
@@ -51,9 +52,13 @@ export const usePostsStore = defineStore('posts-store',{
         created_at: new Date().toLocaleDateString(),
         is_saved: false
       })
+    },
+    deletePost(id){
+      this.posts = this.posts.filter((p)=>p.id!==id)
+    },
+    savePost(id){
+      const post = this.posts.find((p) => p.id === id)
+      post.is_saved = !post.is_saved
     }
   }
-
-
-
 })
