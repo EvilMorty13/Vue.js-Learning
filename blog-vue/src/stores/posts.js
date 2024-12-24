@@ -1,36 +1,14 @@
 import {defineStore} from 'pinia'
 
 
+
 export const usePostsStore = defineStore('posts-store',{
   //Data
   state(){
     return{
-      posts: [
-        {
-          id: 1,
-          title: "This great book!",
-          body: "teel sfsk skdfkls skldfmslkd skdlfsdklf",
-          author: "jon doe",
-          created_at: "11/06/2023",
-          is_saved: false,
-        },
-        {
-          id: 2,
-          title: "ASfsd sdf",
-          body: "sdfsd sdxc lksdf slkdfns ldfksdnflk sdfkls klsdfnskldf sdklf sdlkfsdklfjslfsdlkf sklfsdklf sldkfmsf",
-          author: "jon doe",
-          created_at: "12/06/2024",
-          is_saved: false,
-        },
-        {
-          id: 3,
-          title: "fdgdff sdf sdf",
-          body: "fgjrtfg sdxc lksdf slkdfns ldfksdnflk sdfkls klsdfnskldf sdklf sdlkfsdklfjslfsdlkf sklfsdklf sldkfmsf",
-          author: "jon doe 2",
-          created_at: "10/06/2024",
-          is_saved: false,
-        },
-      ]
+      posts:[],
+      loading:true,
+      errMsg: ''
     }
   },
 
@@ -43,22 +21,54 @@ export const usePostsStore = defineStore('posts-store',{
   },
   //Methods
   actions: {
-    addPost(post){
-      this.posts.push({
-        id: this.posts.length+1,
+    getPosts(){
+      fetch('http://localhost:5000/posts')
+       .then((res)=>res.json())
+       .then((data)=>{
+        this.posts=data,
+        this.loading=false
+       })
+       .catch((err) => {
+        this.errMsg = 'Something went wrong'
+        this.loading = false
+        console.log(err)
+      })
+    },
+    addPost(post) {
+      const newPost = {
+        id: String(this.posts.length + 1),
         title: post.title,
         body: post.body,
         author: 'Iron man',
         created_at: new Date().toLocaleDateString(),
         is_saved: false
-      })
+      }
+
+      this.posts.push(newPost)
+
+      fetch('http://localhost:5000/posts', {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(newPost)
+      }).catch((err) => console.log(err))
     },
-    deletePost(id){
-      this.posts = this.posts.filter((p)=>p.id!==id)
+
+    deletePost(id) {
+      this.posts = this.posts.filter((p) => p.id !== id)
+
+      fetch(`http://localhost:5000/posts/${id}`, {
+        method: 'DELETE'
+      }).catch((err) => console.log(err))
     },
-    savePost(id){
+    savePost(id) {
       const post = this.posts.find((p) => p.id === id)
       post.is_saved = !post.is_saved
+
+      fetch(`http://localhost:5000/posts/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify({ is_saved: post.is_saved })
+      }).catch((err) => console.log(err))
     }
   }
 })

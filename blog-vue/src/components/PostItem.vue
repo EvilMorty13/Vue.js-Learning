@@ -3,9 +3,11 @@
     <div class="header">
         <span>Written by {{ post.author }} on {{ post.created_at }}</span>
         <div>
-          <button  @click="postStore.deletePost(post.id)" class="del material-icons">delete</button>
-          <button @click="postStore.savePost(post.id)" class="save material-icons">{{ post.is_saved ? 'bookmark' : 'bookmark_border' }}</button>
-        </div>
+          <button @click="postStore.deletePost(post.id)" class="del material-icons">delete</button>
+          <button @click="postStore.savePost(post.id)" class="save material-icons">
+            {{ post.is_saved ? 'bookmark' : 'bookmark_border' }}
+        </button>
+      </div>
       </div>
       <h1>{{ post.title }}</h1>
       <p>{{ post.body }}</p>

@@ -11,15 +11,20 @@ const setPostFilter = () =>{
   postFilter.value = postFilter.value === 'all' ? 'saved' : 'all'
 }
 
+postStore.getPosts()
+
 </script>
 
 <template>
   <div class="header">
     <div>
       <h3>{{postFilter === 'all' ? 'All Posts':'Saved Posts'}}</h3>
+      <span v-show="postStore.loading" class="material-icons">cached</span>
     </div>
     <button @click="setPostFilter">{{postFilter === 'all' ? 'Show Saved Posts':'Show all Posts'}}</button>
   </div>
+
+  <div v-if="postStore.errMsg" class="error">{{postStore.errMsg}}</div>
 
   <div v-if="postFilter==='all'">
     <div v-for="post in postStore.sorted" :key="post.id">
