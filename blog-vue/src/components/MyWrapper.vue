@@ -7,11 +7,13 @@
 
 <style lang="scss" scoped>
 .wrapper {
-  width: 300px;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 2rem;
+  background: #fff;
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  margin-bottom: 2rem;
+  border-radius: 1rem;
   overflow: hidden;
-  background-color: #fff;
-  font-family: Arial, sans-serif;
 }
 </style>
