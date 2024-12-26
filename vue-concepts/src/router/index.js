@@ -1,4 +1,4 @@
-import CreateComposableView from '@/views/CreateComposableView.vue'
+import ComposableView from '@/views/ComposableView.vue'
 import LifeCycleView from '@/views/LifeCycleView.vue'
 import ProvideInjectView from '@/views/ProvideInjectView.vue'
 import ReactiveView from '@/views/ReactiveView.vue'
@@ -30,9 +30,9 @@ const router = createRouter({
       component: ProvideInjectView,
     },
     {
-      path: '/create-composable',
-      name: 'create-composable',
-      component: CreateComposableView,
+      path: '/composable',
+      name: 'composable',
+      component: ComposableView,
     },
   ],
 })
