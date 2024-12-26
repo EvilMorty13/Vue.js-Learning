@@ -1,30 +1,26 @@
 <template>
   <div class="maincontainer">
     <div class="subcontainer">
-      <h1>Length: {{ cube.length }}</h1>
-      <button @click="cube.length++">Increase Length</button>
+      <h1>Length: {{ cubeFunction.cube.length }}</h1>
+      <button @click="cubeFunction.increaseLength">Increase Length</button>
     </div>
 
     <div class="subcontainer">
-      <h1>Width: {{ cube.width }}</h1>
-      <button @click="cube.width++">Increase Width</button>
+      <h1>Width: {{ cubeFunction.cube.width }}</h1>
+      <button @click="cubeFunction.increaseWidth">Increase Width</button>
     </div>
 
     <div class="subcontainer">
-      <h1>Height: {{ cube.height }}</h1>
-      <button @click="cube.height++">Increase Height</button>
+      <h1>Height: {{ cubeFunction.cube.height }}</h1>
+      <button @click="cubeFunction.increaseHeight">Increase Height</button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { useCubeStore } from '@/stores/CubeStore';
+const cubeFunction = useCubeStore()
 
-const cube = reactive({
-  length: 10,
-  width: 20,
-  height: 30
-});
 </script>
 
 <style scoped>
