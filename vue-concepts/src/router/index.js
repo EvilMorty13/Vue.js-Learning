@@ -5,6 +5,7 @@ import ReactiveView from '@/views/ReactiveView.vue'
 import RefView from '@/views/RefView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
+let formSubmitted = false;
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -55,9 +56,30 @@ const router = createRouter({
     {
       path: '/form',
       name: 'form',
-      component: () => import('@/views/FormView.vue'),
+      component: () => import('@/views/FormView/FormView.vue'),
+    },
+    {
+      path: '/success-page',
+      name: 'success-page',
+      component: () => import('@/views/FormView/SuccessPageView.vue'),
+      beforeEnter: (to, from, next) => {
+        if (formSubmitted) {
+          next();
+        }
+        else {
+          next('/form');
+        }
+      },
+      props: (route) => ({
+        firstName: route.query.firstName,
+        lastName: route.query.lastName,
+      }),
     },
   ],
 })
+
+export function markFormSubmitted() {
+  formSubmitted = true;
+}
 
 export default router

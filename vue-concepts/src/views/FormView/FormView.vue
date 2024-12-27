@@ -1,8 +1,12 @@
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
+import { markFormSubmitted } from '@/router/index.js';
+
+const router = useRouter();
 
 const { errors, defineField, handleSubmit } = useForm({
   validationSchema: toTypedSchema(
@@ -44,7 +48,15 @@ const toggleConfirmPasswordVisibility = () => {
 
 const submission = handleSubmit((values, { resetForm }) => {
   console.log(values.firstName, values.lastName, values.email, values.password);
+  markFormSubmitted();
   resetForm();
+  router.push({
+    path: '/success-page',
+    query: {
+      firstName: values.firstName,
+      lastName: values.lastName,
+    },
+  });
 });
 </script>
 
@@ -95,7 +107,7 @@ const submission = handleSubmit((values, { resetForm }) => {
 <style scoped>
 form {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 20px auto;
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 8px;
@@ -104,19 +116,20 @@ form {
 
 label {
   display: block;
-  margin-bottom: 8px;
+
   font-weight: 600;
   font-size: 18px;
   color: #000000;
 }
 
 input {
-  width: calc(100% - 40px);
+  width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
   font-size: 14px;
+  margin-bottom: 8px;
 }
 
 input:focus {
@@ -128,24 +141,30 @@ input:focus {
 .password-container {
   display: flex;
   align-items: center;
+  position: relative;
+}
+
+.password-container input {
+  width: 100%;
 }
 
 .toggle-icon {
-  cursor: pointer;
-  margin-left: -30px;
+  position: absolute;
+  right: 10px;
   font-size: 18px;
+  cursor: pointer;
+  color: #555;
 }
 
 .errormsg {
   color: #d9534f;
   font-size: 12px;
-  margin-bottom: 12px;
+  margin: 5px 0 12px 0;
 }
 
 button {
   width: 100%;
-  height: auto;
-  padding: 10px 10px;
+  padding: 12px;
   font-size: 1.2rem;
   border: none;
   background-color: #2C5F2D;
@@ -153,9 +172,11 @@ button {
   border-radius: 15px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  margin-top: 10px;
+  margin-top: 15px;
 }
+
 button:hover {
   background-color: #97BC62;
 }
+
 </style>
