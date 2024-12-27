@@ -1,9 +1,9 @@
 <template>
   <div class="blog-post">
     <h2>Blog Post Details</h2>
-    <p><strong>ID:</strong> {{ post?.id }}</p>
-    <p><strong>Title:</strong> {{ post?.title }}</p>
-    <p><strong>Content:</strong> {{ post?.content }}</p>
+    <p><strong>ID:</strong> {{ post.id }}</p>
+    <p><strong>Title:</strong> {{ post.title }}</p>
+    <p><strong>Content:</strong> {{ post.content }}</p>
   </div>
 </template>
 
