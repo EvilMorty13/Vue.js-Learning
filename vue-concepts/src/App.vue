@@ -10,6 +10,8 @@ import { RouterLink, RouterView } from 'vue-router'
       <RouterLink to="/life-cycle" class="nav-link">Life Cycle</RouterLink>
       <RouterLink to="/provide-inject" class="nav-link">Provide Inject</RouterLink>
       <RouterLink to="/composable" class="nav-link">Composable</RouterLink>
+      <RouterLink to="/blog" class="nav-link">Nested Routing</RouterLink>
+      <RouterLink to="/form" class="nav-link">Form</RouterLink>
     </nav>
   </header>
 

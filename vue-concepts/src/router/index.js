@@ -34,6 +34,29 @@ const router = createRouter({
       name: 'composable',
       component: ComposableView,
     },
+    {
+      path: '/:catchAll(.*)',
+      name: 'not-found',
+      component: () => import('@/views/NotFoundView.vue'),
+    },
+    {
+      path: '/blog',
+      name: 'blog',
+      component: () => import('@/views/NestedView/BlogView.vue'),
+      children: [
+        {
+          path: ':id',
+          name: 'blog-post',
+          component: () => import('@/views/NestedView/BlogPostView.vue'),
+          props: true,
+        },
+      ],
+    },
+    {
+      path: '/form',
+      name: 'form',
+      component: () => import('@/views/FormView.vue'),
+    },
   ],
 })
 
