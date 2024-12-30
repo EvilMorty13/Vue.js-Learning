@@ -17,7 +17,6 @@ export const useJobStore = defineStore('jobStore', () => {
     { name: 'Blacksmith', salary: 4000, description: 'Forge weapons and armor.', experience: 7 },
   ]);
 
-
   const sortedBySalary = computed(() => {
     return [...jobs.value].sort((a, b) => a.salary - b.salary);
   });
@@ -26,9 +25,16 @@ export const useJobStore = defineStore('jobStore', () => {
     return [...jobs.value].sort((a, b) => a.experience - b.experience);
   });
 
+
+  function addJobInStore(newJob: Job) {
+    jobs.value.push(newJob);
+    console.log(jobs.value)
+  }
+
   return {
     jobs,
     sortedBySalary,
     sortedByExperience,
+    addJobInStore,
   };
 });
