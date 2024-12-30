@@ -62,14 +62,7 @@ const router = createRouter({
       path: '/success-page',
       name: 'success-page',
       component: () => import('@/views/FormView/SuccessPageView.vue'),
-      beforeEnter: (to, from, next) => {
-        if (formSubmitted) {
-          next();
-        }
-        else {
-          next('/form');
-        }
-      },
+      beforeEnter: [check],
       props: (route) => ({
         firstName: route.query.firstName,
         lastName: route.query.lastName,
@@ -80,6 +73,15 @@ const router = createRouter({
 
 export function markFormSubmitted() {
   formSubmitted = true;
+}
+
+function check(to, from, next){
+  if (formSubmitted) {
+    next();
+  }
+  else {
+    next('/form');
+  }
 }
 
 export default router
