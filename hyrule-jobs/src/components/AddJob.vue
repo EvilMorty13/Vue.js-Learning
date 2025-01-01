@@ -10,7 +10,7 @@
 
         <div class="form-group">
           <label for="salary">Salary</label>
-          <input id="salary" v-model.g="job.salary" type="number" placeholder="Enter salary" required />
+          <input id="salary" v-model="job.salary" type="number" placeholder="Enter salary" required />
         </div>
 
         <div class="form-group">

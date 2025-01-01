@@ -4,12 +4,15 @@
     <h2 class="product-name">{{ product.name }}</h2>
     <p class="product-price">৳ {{ product.price }}</p>
   </div>
+  <p>hasInjection : {{ hasInjection }}</p>
 </template>
 
 <script setup>
-import { inject } from 'vue';
+import { inject ,hasInjectionContext} from 'vue';
 
 const productDetails = inject('productDetails');
+
+const hasInjection = hasInjectionContext();
 
 </script>
 

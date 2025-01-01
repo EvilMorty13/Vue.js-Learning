@@ -1,15 +1,26 @@
 <template>
   <div>
+    <div class="nav">
+      <button @click="showFavJob" class="navbutton">All Job</button>
+      <button @click="showFavJob" class="navbutton">Favourite Job</button>
+    </div>
     <MyWrapper>
-      <JobView :info="jobInfo" v-on:makeFav="makingFav"/>
+      <JobView :info="jobInfo" :showFav="showFav" v-on:makeFav="makingFav"/>
     </MyWrapper>
   </div>
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { reactive,ref } from 'vue';
 import JobView from './JobView.vue';
 import MyWrapper from '@/components/MyWrapper.vue';
+
+
+const showFav = ref(false);
+
+function showFavJob(){
+  showFav.value = !showFav.value;
+}
 
 const jobInfo = reactive([
   {
@@ -42,4 +53,26 @@ function makingFav(idx) {
 
 <style scoped>
 
+.nav{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+
+button {
+  width: auto;
+  height: auto;
+  padding: 10px 10px;
+  font-size: 1.2rem;
+  border: none;
+  background-color: #2C5F2D;
+  color: white;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+button:hover {
+  background-color: #97BC62;
+}
 </style>

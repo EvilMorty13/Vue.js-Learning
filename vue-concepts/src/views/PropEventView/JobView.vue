@@ -1,5 +1,5 @@
 <template>
-    <div v-for="(i, idx) in info" :key="idx" class="subcontainer">
+    <div v-for="(i, idx) in filteredJobs" :key="idx" class="subcontainer">
       <p>Job Name : {{ i.name }}</p>
       <p>Salary : {{ i.salary }}</p>
       <p>Favourite : {{ i.fav}}</p>
@@ -11,14 +11,28 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
 
-defineProps([
-  'info'
-])
+const props = defineProps({
+  info: {
+    type: Array,
+    required: true,
+  },
+  showFav: {
+    type: Boolean,
+    required: true,
+  },
+});
+
 
 defineEmits([
   'makeFav'
 ])
+
+const filteredJobs = computed(() =>
+  props.showFav ? props.info.filter((job) => job.fav) : props.info
+);
+
 </script>
 
 <style scoped>
