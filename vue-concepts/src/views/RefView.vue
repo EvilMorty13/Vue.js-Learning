@@ -21,12 +21,20 @@
     <div class="subcontainer">
       <DemoComponent/>
     </div>
+
+    <div class="subcontainer">
+      <button @click="incrementComputedCount">Click Button : {{ countComputed }}</button>
+      <p>Is Odd? {{ isOdd }}</p>
+      <p class="celebrate"> {{ celebrateMessageWatch }}</p>
+      <p class="celebrate"> {{ celebrateMessageWatchEffect }}</p>
+    </div>
+
   </div>
 </template>
 
 <script setup>
 import DemoComponent from '@/components/DemoComponent.vue';
-import { ref, reactive, isRef, unref, isReactive, isReadonly, isProxy} from 'vue';
+import { ref, reactive, isRef, unref, isReactive, isReadonly, isProxy,computed,watch, watchEffect} from 'vue';
 
 
 const refCount = ref(0);
@@ -56,6 +64,43 @@ const incrementReactiveCount = () => {
   reactiveObj.recactiveCount++;
 };
 
+const isOdd = computed(() => {
+  return countComputed.value % 2 !== 0;
+});
+
+
+
+const countComputed = ref(0);
+const celebrateMessageWatch = ref('');
+const celebrateMessageWatchEffect = ref('');
+
+
+const incrementComputedCount = () => {
+  countComputed.value++;
+};
+
+// Watch: Reactively handles updates to countComputed for multiples of 10
+watch(countComputed, (newCount) => {
+  if (newCount % 10 === 0) {
+    celebrateMessageWatch.value =
+      "🎉 Congratulations! You reached a multiple of 10! (Using watch) 🎉";
+    setTimeout(() => {
+      celebrateMessageWatch.value = '';
+    }, 2000);
+  }
+});
+
+// WatchEffect: Similar functionality using implicit dependency tracking
+watchEffect(() => {
+  if (countComputed.value % 10 === 0) {
+    celebrateMessageWatchEffect.value =
+      "🎉 Congratulations! You reached a multiple of 10! (Using watchEffect) 🎉";
+    setTimeout(() => {
+      celebrateMessageWatchEffect.value = '';
+    }, 2000);
+  }
+});
+watchEffect()
 
 </script>
 
@@ -90,5 +135,13 @@ button {
 }
 button:hover {
   background-color: #97BC62;
+}
+
+.celebrate {
+  color: #e74c3c;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 10px;
+  animation: fadeIn 1s ease-in-out;
 }
 </style>
