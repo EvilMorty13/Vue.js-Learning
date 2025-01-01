@@ -1,5 +1,6 @@
 import ComposableView from '@/views/ComposableView.vue'
 import LifeCycleView from '@/views/LifeCycleView.vue'
+import PropEventView from '@/views/PropEventView/PropEventView.vue'
 import ProvideInjectView from '@/views/ProvideInjectView.vue'
 import ReactiveView from '@/views/ReactiveView.vue'
 import RefView from '@/views/RefView.vue'
@@ -34,6 +35,11 @@ const router = createRouter({
       path: '/composable',
       name: 'composable',
       component: ComposableView,
+    },
+    {
+      path: '/prop-event',
+      name: 'prop-event',
+      component: PropEventView,
     },
     {
       path: '/:catchAll(.*)',

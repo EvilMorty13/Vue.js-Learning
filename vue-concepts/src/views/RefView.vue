@@ -27,6 +27,8 @@
       <p>Is Odd? {{ isOdd }}</p>
       <p class="celebrate"> {{ celebrateMessageWatch }}</p>
       <p class="celebrate"> {{ celebrateMessageWatchEffect }}</p>
+      <button @click="increaseCopyCount">Click Button to increase Copy </button>
+      <p>Copy : {{ copyCount }}</p>
     </div>
 
   </div>
@@ -34,7 +36,7 @@
 
 <script setup>
 import DemoComponent from '@/components/DemoComponent.vue';
-import { ref, reactive, isRef, unref, isReactive, isReadonly, isProxy,computed,watch, watchEffect} from 'vue';
+import { ref, reactive, isRef, unref, isReactive, isReadonly, isProxy,computed, watch, watchEffect, readonly} from 'vue';
 
 
 const refCount = ref(0);
@@ -100,7 +102,15 @@ watchEffect(() => {
     }, 2000);
   }
 });
-watchEffect()
+
+const copyCount = readonly(countComputed)
+
+//It won't work
+const increaseCopyCount = () => {
+  copyCount.value++;
+  console.log(copyCount.value)
+};
+
 
 </script>
 

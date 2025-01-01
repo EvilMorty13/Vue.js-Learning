@@ -1,7 +1,7 @@
 <template>
-  <div class="products-container">
+  <MyWrapper>
     <ProductItem />
-  </div>
+  </MyWrapper>
 </template>
 
 <script setup>
@@ -11,6 +11,8 @@ import Smartphone from '@/assets/smartphone.png';
 import MoneyBag from '@/assets/moneybag.png';
 import Watch from '@/assets/watch.png';
 import TShirt from '@/assets/tshirt.png';
+import MyWrapper from '@/components/MyWrapper.vue';
+
 const productDetails = [
   {
     id: 1,
@@ -43,11 +45,5 @@ provide('productDetails', productDetails);
 </script>
 
 <style scoped>
-.products-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px;
-}
+
 </style>

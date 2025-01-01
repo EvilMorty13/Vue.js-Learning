@@ -8,6 +8,7 @@ import { RouterLink, RouterView } from 'vue-router'
       <RouterLink to="/" class="nav-link">Ref</RouterLink>
       <RouterLink to="/reactive" class="nav-link">Reactive</RouterLink>
       <RouterLink to="/life-cycle" class="nav-link">Life Cycle</RouterLink>
+      <RouterLink to="/prop-event" class="nav-link">Prop Event</RouterLink>
       <RouterLink to="/provide-inject" class="nav-link">Provide Inject</RouterLink>
       <RouterLink to="/composable" class="nav-link">Composable</RouterLink>
       <RouterLink to="/blog" class="nav-link">Nested Routing</RouterLink>
@@ -40,4 +41,9 @@ nav {
 .nav-link:hover {
   background: #97BC62;
 }
+
+.router-link-active {
+  background: #97BC62;
+}
+
 </style>
