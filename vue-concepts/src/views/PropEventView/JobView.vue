@@ -4,15 +4,17 @@
       <p>Salary : {{ i.salary }}</p>
       <p>Favourite : {{ i.fav}}</p>
       <p>Id : {{ idx }}</p>
-      <button @click="$emit('makeFav', idx)">{{ i.fav ? 'Unfavourite' : 'Make Favourite' }}</button>
+      <button :class="i.fav ? 'unfav' : 'fav'" @click="$emit('makeFav', idx)">
+        {{ i.fav ? 'Unfavourite' : 'Make Favourite' }}
+      </button>
     </div>
 </template>
 
 <script setup>
 
-defineProps({
-  info:Array
-})
+defineProps([
+  'info'
+])
 
 defineEmits([
   'makeFav'
@@ -38,6 +40,13 @@ defineEmits([
   transform: translateY(-5px);
   background-color: #e0e0e0;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.fav{
+  background-color: rgb(20, 84, 13);
+}
+
+.unfav{
+  background-color: rgb(252, 0, 0);
 }
 button {
   width: auto;
