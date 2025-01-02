@@ -1,6 +1,7 @@
 <template>
   <div class="maincontainer">
     <div class="subcontainer">
+      <h2>Ref</h2>
       <button @click="incrementRefCount">Click Ref Button : {{ refCount }}</button>
       <p>Is a Ref? {{ isCountRef }}</p>
       <p>Count via unref: {{ unrefCount }}</p>
@@ -10,6 +11,7 @@
     </div>
 
     <div class="subcontainer">
+      <h2>Reactive</h2>
       <button @click="incrementReactiveCount">Click Reactive Button : {{ reactiveObj.recactiveCount }}</button>
       <p>Is a Ref? {{ isCountRef2 }}</p>
       <p>Count via unref: {{ unrefCount2 }}</p>
@@ -19,10 +21,12 @@
     </div>
 
     <div class="subcontainer">
+      <h2>toRef,toRefs</h2>
       <DemoComponent/>
     </div>
 
     <div class="subcontainer">
+      <h2>computed, watch, watchEffect,readonly</h2>
       <button @click="incrementComputedCount">Click Button : {{ countComputed }}</button>
       <p>Is Odd? {{ isOdd }}</p>
       <p class="celebrate"> {{ celebrateMessageWatch }}</p>
@@ -31,12 +35,32 @@
       <p>Copy : {{ copyCount }}</p>
     </div>
 
-  </div>
+    <div class="subcontainer">
+      <h2>ShallowRef</h2>
+      <button @click="increaseCountInObject">Click Button : {{ shallowRefObject.count }}</button>
+    </div>
+    <div class="subcontainer">
+      <h2>shallowReactive</h2>
+      <p>Count: {{ shallowReactiveObject.count }}</p>
+      <button @click="incrementCount">Increment Count</button>
+      <p>Nested Value: {{ shallowReactiveObject.nested.value }}</p>
+      <button @click="incrementNestedValue">Increment Nested Value</button>
+    </div>
+    <div class="subcontainer">
+      <h2>shallowReadonly</h2>
+      <p>Count: {{ shallowReadonlyObject.count }}</p>
+      <button @click="modifyCount">Modify Count</button>
+      <p>Nested Value: {{ shallowReadonlyObject.nested.value }}</p>
+      <button @click="modifyNestedValue">Modify Nested Value</button>
+    </div>
+ </div>
+
 </template>
 
 <script setup>
 import DemoComponent from '@/components/DemoComponent.vue';
-import { ref, reactive, isRef, unref, isReactive, isReadonly, isProxy,computed, watch, watchEffect, readonly} from 'vue';
+import { ref, reactive, isRef, unref, isReactive, isReadonly, isProxy,
+  computed, watch, watchEffect, readonly, shallowRef,triggerRef,shallowReactive,shallowReadonly} from 'vue';
 
 
 const refCount = ref(0);
@@ -112,13 +136,63 @@ const increaseCopyCount = () => {
 };
 
 
+
+const shallowRefObject = shallowRef({ count: 10 });
+
+function increaseCountInObject() {
+  shallowRefObject.value.count++;
+  console.log(shallowRefObject.value.count)
+  triggerRef(shallowRefObject);
+}
+
+
+const shallowReactiveObject = shallowReactive({
+  count: 10,
+  nested: {
+    value: 20,
+  },
+});
+
+// Function to update root-level property
+function incrementCount() {
+  shallowReactiveObject.count++; // Reactivity is triggered for 'count'
+}
+
+// Function to update nested property
+function incrementNestedValue() {
+  shallowReactiveObject.nested.value++; // Reactivity is NOT triggered for 'nested.value'
+}
+
+const shallowReadonlyObject = shallowReadonly({
+  count: 10,
+  nested: {
+    value: 20,
+  },
+});
+
+// Attempt to modify root-level property
+function modifyCount() {
+  shallowReadonlyObject.count++; // This will throw an error in development mode.
+}
+
+// Attempt to modify nested property
+function modifyNestedValue() {
+  console.log(shallowReadonlyObject.nested.value)
+  shallowReadonlyObject.nested.value++; // This is allowed because `nested` is not readonly.
+}
 </script>
 
 <style scoped>
+
+h2{
+  color: red;
+}
+
 .maincontainer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .subcontainer{
@@ -126,10 +200,12 @@ const increaseCopyCount = () => {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 50%;
-
+  width: 45%;
   margin-top: 50px;
+  border: 2px solid #000000; /* Add width and style */
+  border-radius: 10px;
 }
+
 
 button {
   width: auto;

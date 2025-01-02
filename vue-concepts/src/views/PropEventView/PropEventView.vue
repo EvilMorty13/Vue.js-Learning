@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { reactive,ref } from 'vue';
+import { reactive,ref} from 'vue';
 import JobView from './JobView.vue';
 import MyWrapper from '@/components/MyWrapper.vue';
 
@@ -56,6 +56,8 @@ function makingFav(idx) {
 
 const attrData = ref("This is attrData")
 const attrDataTwo = ref("This is attrDataTwo")
+
+
 </script>
 
 <style scoped>

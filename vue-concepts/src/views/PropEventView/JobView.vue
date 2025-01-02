@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import { computed,useAttrs,useId} from 'vue';
+import { computed,useAttrs,useId } from 'vue';
 
 const props = defineProps({
   info: {
@@ -38,6 +38,7 @@ const filteredJobs = computed(() =>
 
 const attrs = useAttrs();
 const id = useId();
+
 </script>
 
 <style scoped>
