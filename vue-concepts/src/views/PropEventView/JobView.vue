@@ -8,10 +8,12 @@
         {{ i.fav ? 'Unfavourite' : 'Make Favourite' }}
       </button>
     </div>
+    <p>Attributes not defined in props : {{ attrs }}</p>
+    <p>Unique-per-application ID : {{ id }}</p>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed,useAttrs,useId} from 'vue';
 
 const props = defineProps({
   info: {
@@ -33,6 +35,9 @@ const filteredJobs = computed(() =>
   props.showFav ? props.info.filter((job) => job.fav) : props.info
 );
 
+
+const attrs = useAttrs();
+const id = useId();
 </script>
 
 <style scoped>

@@ -1,11 +1,15 @@
 <template>
   <div>
     <div class="nav">
-      <button @click="showFavJob" class="navbutton">All Job</button>
-      <button @click="showFavJob" class="navbutton">Favourite Job</button>
+      <div class="navSub">
+        <button @click="showFavJob" class="navbutton">All Job</button>
+      </div>
+      <div class="navSub">
+        <button @click="showFavJob" class="navbutton">Favourite Job</button>
+      </div>
     </div>
     <MyWrapper>
-      <JobView :info="jobInfo" :showFav="showFav" v-on:makeFav="makingFav"/>
+      <JobView :info="jobInfo" :showFav="showFav" :attrData="attrData" :attrDataTwo="attrDataTwo" v-on:makeFav="makingFav"/>
     </MyWrapper>
   </div>
 </template>
@@ -49,6 +53,9 @@ function makingFav(idx) {
   jobInfo[idx].fav = !jobInfo[idx].fav;
 }
 
+
+const attrData = ref("This is attrData")
+const attrDataTwo = ref("This is attrDataTwo")
 </script>
 
 <style scoped>
@@ -57,6 +64,14 @@ function makingFav(idx) {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.navSub{
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 

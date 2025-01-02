@@ -14,13 +14,16 @@
       <h1>Height: {{ cubeFunction.cube.height }}</h1>
       <button @click="cubeFunction.increaseHeight">Increase Height</button>
     </div>
+    <p>Unique-per-application ID : {{ id }}</p>
   </div>
 </template>
 
 <script setup>
 import { useCubeStore } from '@/stores/CubeStore';
+import { useId } from 'vue';
 const cubeFunction = useCubeStore()
 
+const id = useId();
 </script>
 
 <style scoped>
