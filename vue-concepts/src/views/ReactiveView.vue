@@ -1,5 +1,7 @@
 <template>
   <div class="maincontainer">
+    <p v-highlight>{{ messageFromApp }}</p>
+
     <div class="subcontainer">
       <h1>Length: {{ cubeFunction.cube.length }}</h1>
       <button @click="cubeFunction.increaseLength">Increase Length</button>
@@ -19,11 +21,12 @@
 </template>
 
 <script setup>
-import { useCubeStore } from '@/stores/CubeStore';
-import { useId } from 'vue';
+import { useCubeStore} from '@/stores/CubeStore';
+import { inject, useId } from 'vue';
 const cubeFunction = useCubeStore()
 
 const id = useId();
+const messageFromApp = inject('message')
 </script>
 
 <style scoped>
@@ -60,4 +63,9 @@ button {
 button:hover {
   background-color: #97BC62;
 }
+
+::v-deep(.is-highlight) {
+  background-color: yellow;
+}
+
 </style>

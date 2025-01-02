@@ -1,5 +1,6 @@
 <template>
   <div class="maincontainer">
+    <!-- <div>{{ nonExistentVariable }}</div> -->
     <button @click="count++">Click Me : {{ count }}</button>
   </div>
 </template>
@@ -15,6 +16,7 @@ onBeforeMount(() => {
 
 onMounted(() => {
   console.log('onMounted function');
+  throw new Error('Error from mounted hook');
 });
 
 onBeforeUnmount(() => {
