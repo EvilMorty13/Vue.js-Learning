@@ -53,6 +53,11 @@
       <p>Nested Value: {{ shallowReadonlyObject.nested.value }}</p>
       <button @click="modifyNestedValue">Modify Nested Value</button>
     </div>
+    <div class="subcontainer">
+      <h2>nextTick</h2>
+      <p id="counter">Count: {{ nextTickCount }}</p>
+      <button @click="nextTickIncrement">Modify Count</button>
+    </div>
  </div>
 
 </template>
@@ -60,7 +65,7 @@
 <script setup>
 import DemoComponent from '@/components/DemoComponent.vue';
 import { ref, reactive, isRef, unref, isReactive, isReadonly, isProxy,
-  computed, watch, watchEffect, readonly, shallowRef,triggerRef,shallowReactive,shallowReadonly} from 'vue';
+  computed, watch, watchEffect, readonly, shallowRef,triggerRef,shallowReactive,shallowReadonly,nextTick} from 'vue';
 
 
 const refCount = ref(0);
@@ -179,6 +184,20 @@ function modifyCount() {
 function modifyNestedValue() {
   console.log(shallowReadonlyObject.nested.value)
   shallowReadonlyObject.nested.value++; // This is allowed because `nested` is not readonly.
+}
+
+
+const nextTickCount = ref(0)
+
+async function nextTickIncrement() {
+  nextTickCount.value++
+
+  // DOM not yet updated
+  console.log(document.getElementById('counter').textContent) // 0
+
+  await nextTick()
+  // DOM is now updated
+  console.log(document.getElementById('counter').textContent) // 1
 }
 </script>
 

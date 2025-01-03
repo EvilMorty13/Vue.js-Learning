@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { reactive,ref} from 'vue';
+import { reactive, ref } from 'vue';
 import JobView from './JobView.vue';
 import MyWrapper from '@/components/MyWrapper.vue';
 

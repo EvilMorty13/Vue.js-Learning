@@ -29,6 +29,20 @@ app.config.errorHandler = (err, instance, info) => {
   console.error('Info:', info);
 };
 
+app.config.warnHandler = (msg, instance, trace) => {
+  console.warn('Warning Message:', msg);
+  console.warn('Component Instance:', instance);
+  console.warn('Trace:', trace);
+};
+
+app.config.performance = true
+app.config.compilerOptions.comments = true
+app.config.compilerOptions.whitespace = 'preserve'
+
+app.config.globalProperties.msg = 'hello from main.js'
+app.config.idPrefix = 'vuejs-learning'
+app.config.throwUnhandledErrorInProduction = true
+
 app.mount('#app')
 
 

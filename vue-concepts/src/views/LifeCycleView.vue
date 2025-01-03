@@ -1,7 +1,7 @@
 <template>
   <div class="maincontainer">
     <!-- <div>{{ nonExistentVariable }}</div> -->
-    <button @click="count++">Click Me : {{ count }}</button>
+    <button @click="count++">Click Me : {{      count }}</button>
   </div>
 </template>
 

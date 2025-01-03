@@ -22,11 +22,18 @@
 
 <script setup>
 import { useCubeStore} from '@/stores/CubeStore';
-import { inject, useId } from 'vue';
+import { inject, useId,onMounted,getCurrentInstance,version } from 'vue';
 const cubeFunction = useCubeStore()
 
 const id = useId();
 const messageFromApp = inject('message')
+console.log(version)
+
+onMounted(() => {
+  const { appContext } = getCurrentInstance();
+  const globalMsg = appContext.config.globalProperties.msg;
+  console.log(globalMsg);
+});
 </script>
 
 <style scoped>
