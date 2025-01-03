@@ -1,4 +1,5 @@
 import ComposableView from '@/views/ComposableView.vue'
+import DefineModelView from '@/views/DefineModelView.vue'
 import LifeCycleView from '@/views/LifeCycleView.vue'
 import PropEventView from '@/views/PropEventView/PropEventView.vue'
 import ProvideInjectView from '@/views/ProvideInjectView.vue'
@@ -30,6 +31,11 @@ const router = createRouter({
       path: '/provide-inject',
       name: 'provide-inject',
       component: ProvideInjectView,
+    },
+    {
+      path: '/define-model',
+      name: 'define-model',
+      component: DefineModelView,
     },
     {
       path: '/composable',
