@@ -58,6 +58,16 @@
       <p id="counter">Count: {{ nextTickCount }}</p>
       <button @click="nextTickIncrement">Modify Count</button>
     </div>
+    <div class="subcontainer">
+      <h2>toRaw</h2>
+      <p>Count: {{ toRawCopy.recactiveCount }}</p>
+      <button @click="incrementToRawCopy">Modify Count</button>
+    </div>
+    <div class="subcontainer">
+      <h2>markRaw</h2>
+      <p>Count: {{ foo.count }}</p>
+      <button @click="increaseMarkRaw">Modify Count</button>
+    </div>
  </div>
 
 </template>
@@ -65,7 +75,8 @@
 <script setup>
 import DemoComponent from '@/components/DemoComponent.vue';
 import { ref, reactive, isRef, unref, isReactive, isReadonly, isProxy,
-  computed, watch, watchEffect, readonly, shallowRef,triggerRef,shallowReactive,shallowReadonly,nextTick} from 'vue';
+  computed, watch, watchEffect, readonly, shallowRef,triggerRef,shallowReactive,shallowReadonly,nextTick,
+  toRaw,markRaw} from 'vue';
 
 
 const refCount = ref(0);
@@ -199,6 +210,29 @@ async function nextTickIncrement() {
   // DOM is now updated
   console.log(document.getElementById('counter').textContent) // 1
 }
+
+
+const toRawCopy = toRaw(reactiveObj)
+
+
+function incrementToRawCopy(){
+  console.log(toRawCopy.recactiveCount)
+  toRawCopy.recactiveCount++
+}
+
+
+const foo = markRaw({count:10})
+const markRawObj = reactive({
+  c : foo
+})
+
+function increaseMarkRaw(){
+  console.log(markRawObj.c.count)
+  markRawObj.c.count++;
+}
+
+
+
 </script>
 
 <style scoped>
@@ -215,6 +249,7 @@ h2{
 }
 
 .subcontainer{
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
