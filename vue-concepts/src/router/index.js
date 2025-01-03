@@ -1,10 +1,11 @@
 import ComposableView from '@/views/ComposableView.vue'
-import DefineModelView from '@/views/DefineModelView.vue'
+import DefineModelView from '@/views/DefineModelView/DefineModelView.vue'
 import LifeCycleView from '@/views/LifeCycleView.vue'
 import PropEventView from '@/views/PropEventView/PropEventView.vue'
 import ProvideInjectView from '@/views/ProvideInjectView.vue'
 import ReactiveView from '@/views/ReactiveView.vue'
 import RefView from '@/views/RefView.vue'
+import SignInView from '@/views/FormView/SignInView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 let formSubmitted = false;
@@ -71,13 +72,19 @@ const router = createRouter({
       component: () => import('@/views/FormView/FormView.vue'),
     },
     {
+      path: '/sign-in',
+      name: 'sign-in',
+      component: SignInView,
+    },
+    {
       path: '/success-page',
       name: 'success-page',
       component: () => import('@/views/FormView/SuccessPageView.vue'),
       beforeEnter: [check],
       props: (route) => ({
-        firstName: route.query.firstName,
-        lastName: route.query.lastName,
+        // firstName: route.query.firstName,
+        // lastName: route.query.lastName,
+        email: route.query.email
       }),
     },
   ],
@@ -92,7 +99,7 @@ function check(to, from, next){
     next();
   }
   else {
-    next('/form');
+    next('/sign-in');
   }
 }
 

@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { useRouter,RouterLink } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
@@ -12,46 +12,24 @@ const router = useRouter();
 const { errors, defineField, handleSubmit } = useForm({
   validationSchema: toTypedSchema(
     yup.object({
-      firstName: yup
-        .string()
-        .matches(/^[A-Za-z\s]+$/, 'First name must contain only letters and spaces')
-        .required('First name is required'),
-      lastName: yup
-        .string()
-        .matches(/^[A-Za-z\s]+$/, 'Last name must contain only letters and spaces')
-        .required('Last name is required'),
       email: yup.string().email().required('Email is required'),
       password: yup.string().min(8).required('Password is required'),
-      confirmPassword: yup
-        .string()
-        .oneOf([yup.ref('password')], 'Passwords must match')
-        .required('Confirm Password is required'),
     }),
   ),
 });
 
-const [firstName, firstNameAttrs] = defineField('firstName');
-const [lastName, lastNameAttrs] = defineField('lastName');
 const [email, emailAttrs] = defineField('email');
 const [password, passwordAttrs] = defineField('password');
-const [confirmPassword, confirmPasswordAttrs] = defineField('confirmPassword');
 
 const showPassword = ref(false);
-const showConfirmPassword = ref(false);
 
 const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value;
 };
 
-const toggleConfirmPasswordVisibility = () => {
-  showConfirmPassword.value = !showConfirmPassword.value;
-};
-
 const submission = handleSubmit(async (values, { resetForm }) => {
   try {
-    const response = await axios.post('/signup', {
-      firstName: values.firstName,
-      lastName: values.lastName,
+    const response = await axios.post('/signin', {
       email: values.email,
       password: values.password,
     });
@@ -62,7 +40,10 @@ const submission = handleSubmit(async (values, { resetForm }) => {
     resetForm();
 
     router.push({
-      path: '/sign-in',
+      path: '/success-page',
+      query: {
+        email: values.email,
+      },
     });
   } catch (error) {
     console.error('Error submitting form:', error.response?.data || error.message);
@@ -70,17 +51,8 @@ const submission = handleSubmit(async (values, { resetForm }) => {
 });
 </script>
 
-
 <template>
   <form @submit="submission">
-    <label for="FirstName">First Name:</label><br />
-    <input v-model="firstName" v-bind="firstNameAttrs" />
-    <p class="errormsg">{{ errors.firstName }}</p>
-
-    <label for="LastName">Last Name:</label><br />
-    <input v-model="lastName" v-bind="lastNameAttrs" />
-    <p class="errormsg">{{ errors.lastName }}</p>
-
     <label for="E-Mail">E-mail:</label><br />
     <input v-model="email" v-bind="emailAttrs" />
     <p class="errormsg">{{ errors.email }}</p>
@@ -98,24 +70,10 @@ const submission = handleSubmit(async (values, { resetForm }) => {
     </div>
     <p class="errormsg">{{ errors.password }}</p>
 
-    <label for="ConfirmPassword">Confirm Password:</label><br />
-    <div class="password-container">
-      <input
-        v-model="confirmPassword"
-        v-bind="confirmPasswordAttrs"
-        :type="showConfirmPassword ? 'text' : 'password'"
-      />
-      <span class="toggle-icon" @click="toggleConfirmPasswordVisibility">
-        {{ showConfirmPassword ? '👁️' : '👁️‍🗨️' }}
-      </span>
-    </div>
-    <p class="errormsg">{{ errors.confirmPassword }}</p>
+    <button type="submit">Sign In</button>
 
-    <button type="submit">Submit</button>
-    <h3>Already a user? <RouterLink to="/sign-in">Sign In</RouterLink></h3>
+    <h3>Don't have an account? <RouterLink to="/form">Sign Up</RouterLink></h3>
   </form>
-
-
 </template>
 
 <style scoped>
@@ -128,11 +86,8 @@ form {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-
-
 label {
   display: block;
-
   font-weight: 600;
   font-size: 18px;
   color: #000000;
@@ -194,5 +149,4 @@ button {
 button:hover {
   background-color: #97BC62;
 }
-
 </style>

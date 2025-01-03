@@ -1,20 +1,25 @@
 <template>
   <div class="maincontainer">
     <h1>Success</h1>
-    <p>Your form has been successfully submitted!</p>
-    <p>Welcome, {{ firstName }} {{ lastName }}!</p>
+    <p>You have successfull logged in!</p>
+    <!-- <p>Welcome, {{ firstName }} {{ lastName }}!</p> -->
+    <p>{{email}}</p>
   </div>
 </template>
 
 <script setup>
 defineProps({
-  firstName: {
-    type: String,
-    required: true,
-  },
-  lastName: {
-    type: String,
-    required: true,
+  // firstName: {
+  //   type: String,
+  //   required: true,
+  // },
+  // lastName: {
+  //   type: String,
+  //   required: true,
+  // },
+    email: {
+      type: String,
+      required: true,
   },
 });
 </script>
