@@ -7,6 +7,8 @@ import ReactiveView from '@/views/ReactiveView.vue'
 import RefView from '@/views/RefView.vue'
 import SignInView from '@/views/FormView/SignInView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import BlogCardView from '@/views/BlogCardView.vue'
+import BlogCardPostView from '@/views/BlogCardPostView.vue'
 
 let formSubmitted = false;
 
@@ -76,6 +78,7 @@ const router = createRouter({
       name: 'sign-in',
       component: SignInView,
     },
+
     {
       path: '/success-page',
       name: 'success-page',
@@ -86,6 +89,17 @@ const router = createRouter({
         // lastName: route.query.lastName,
         email: route.query.email
       }),
+    },
+    {
+      path: '/blog-card',
+      name: 'blog-card',
+      component: BlogCardView,
+    },
+    {
+      path: '/blog-card/:id(\\d+)',
+      name: 'blog-card-detail',
+      component: BlogCardPostView,
+      props: true,
     },
   ],
 })
