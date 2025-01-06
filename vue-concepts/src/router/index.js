@@ -7,8 +7,9 @@ import ReactiveView from '@/views/ReactiveView.vue'
 import RefView from '@/views/RefView.vue'
 import SignInView from '@/views/FormView/SignInView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import BlogCardView from '@/views/BlogCardView.vue'
-import BlogCardPostView from '@/views/BlogCardPostView.vue'
+import BlogCardView from '@/views/APICallView/BlogCardView.vue'
+import BlogCardPostView from '@/views/APICallView/BlogCardPostView.vue'
+import BlogCardAddView from '@/views/APICallView/BlogCardAddView.vue'
 
 let formSubmitted = false;
 
@@ -94,6 +95,11 @@ const router = createRouter({
       path: '/blog-card',
       name: 'blog-card',
       component: BlogCardView,
+    },
+    {
+      path: '/blog-card/add',
+      name: 'blog-card-add',
+      component: BlogCardAddView,
     },
     {
       path: '/blog-card/:id(\\d+)',

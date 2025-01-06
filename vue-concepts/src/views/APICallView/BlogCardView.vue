@@ -1,5 +1,9 @@
 <template>
-  <h1>Blogs</h1>
+  <div class="header">
+    <h1>Blogs</h1>
+    <RouterLink :to="{ name: 'blog-card-add' }" class="add-blog-icon">+</RouterLink>
+  </div>
+
   <MyWrapper>
     <div class="subcontainer" v-for="blog in blogs" :key="blog.id">
       <h3>Title : {{ blog.title }}</h3>
@@ -10,19 +14,20 @@
       </RouterLink>
     </div>
   </MyWrapper>
+
 </template>
 
 <script setup>
 import { RouterLink } from 'vue-router'
 import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import axios from '@/axios.js';
 import MyWrapper from '@/components/MyWrapper.vue';
 const blogs = ref([]);
 
 
 onMounted(async () => {
   try {
-    const response = await axios.get('http://localhost:8000/blogs/');
+    const response = await axios.get('/blogs/');
     blogs.value = response.data;
   } catch (error) {
     console.error('Error fetching blogs:', error);
@@ -32,6 +37,40 @@ console.log(`sdmf 1`)
 </script>
 
 <style scoped>
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 98%;
+}
+
+h1 {
+  flex-grow: 1;
+  text-align: center;
+
+}
+
+.add-blog-icon {
+  font-size: 36px;
+  padding: 0px 10px;
+  font-weight: bold;
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 0, 0);
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.add-blog-icon:hover {
+  color: rgb(255, 0, 0);
+  background-color: #000000;
+}
+
+
 .subcontainer {
   display: flex;
   flex-direction: column;
@@ -77,4 +116,6 @@ h3 {
 p {
   margin: 0;
 }
+
+
 </style>
