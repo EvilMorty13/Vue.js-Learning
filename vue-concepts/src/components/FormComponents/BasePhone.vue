@@ -4,7 +4,7 @@
     <div style="display: flex; align-items: center;">
       <span class="prefix">{{ prefix }}</span>
       <input
-        type="tel"
+        type="number"
         v-model="localPhone"
         :placeholder="placeholder"
         @input="updatePhoneNumber"
@@ -73,10 +73,10 @@ function updatePhoneNumber() {
   const config = countryConfig[props.country];
   if (config) {
     const maxLength = config.digits;
-    if (localPhone.value.length > maxLength) {
+    const phoneNumber = String(localPhone.value);
+
+    if (phoneNumber.length > maxLength) {
       errorMessage.value = `Number should not exceed ${maxLength} digits for ${props.country}.`;
-    } else if (!/^\d*$/.test(localPhone.value)) {
-      errorMessage.value = 'Only numeric values are allowed.';
     } else {
       errorMessage.value = '';
     }
