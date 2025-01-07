@@ -31,12 +31,35 @@
         :minLength="7"
       />
 
+    <BaseDropdown
+      label="Country"
+      v-model="selectedCountry"
+      :options="countries"
+    />
+
+    <BaseDropdown
+      label="Company"
+      v-model="selectedCompany"
+      :options="companies"
+    />
+
+
+    <BasePhone
+      label="Mobile Number"
+      :country="selectedCountry"
+      v-model="phoneNo"
+    />
+
     <button type="submit">Submit</button>
+
   </form>
-  <p>{{ firstName }}</p>
-  <p>{{ lastName }}</p>
-  <p>{{ fatherName }}</p>
-  <p>{{ password }}</p>
+  <p>firstName : {{ firstName }}</p>
+  <p>lastName : {{ lastName }}</p>
+  <p>fatherName : {{ fatherName }}</p>
+  <p>password : {{ password }}</p>
+  <p>country : {{ selectedCountry }}</p>
+  <p>company : {{ selectedCompany }}</p>
+  <p>phone no : {{ phoneNo }}</p>
 </template>
 
 
@@ -44,14 +67,34 @@
 import { ref } from 'vue';
 import BaseNameInput from '../components/FormComponents/BaseNameInput.vue';
 import BasePassword from '../components/FormComponents/BasePassword.vue';
+import BaseDropdown from '@/components/FormComponents/BaseDropdown.vue';
+import BasePhone from '@/components/FormComponents/BasePhone.vue';
+
 
 const firstName = ref('');
 const lastName = ref('');
 const fatherName = ref('');
-const password = ref('')
+const password = ref('');
+
+const selectedCountry = ref('');
+const countries = ['Bangladesh', 'USA'];
+
+const selectedCompany = ref('');
+const companies = ['Google','Microsoft','Apple'];
+
+const phoneNo = ref('')
 
 function submission(event) {
   event.preventDefault();
+  console.log({
+    firstName: firstName.value,
+    lastName: lastName.value,
+    fatherName: fatherName.value,
+    password: password.value,
+    country: selectedCountry.value,
+    company: selectedCompany.value,
+    phoneNo: phoneNo.value
+  });
 }
 
 </script>

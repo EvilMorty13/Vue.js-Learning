@@ -42,15 +42,16 @@ const errorMessage = ref('');
 
 function validateName(){
   const value = name.value;
-  if (value.length < props.minLength) {
+
+  if (/\d/.test(value)) {
+    errorMessage.value = `Numbers are not allowed.`;
+    name.value = value.replace(/\d/g, '');
+  }
+  else if (value.length < props.minLength) {
     errorMessage.value = `Minimum length is ${props.minLength} characters.`;
   }
   else if (value.length > props.maxLength) {
     errorMessage.value = `Maximum length is ${props.maxLength} characters.`;
-  }
-  else if (/\d/.test(value)) {
-    errorMessage.value = `Numbers are not allowed.`;
-    name.value = value.replace(/\d/g, '');
   }
   else {
     errorMessage.value = '';
