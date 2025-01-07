@@ -1,8 +1,8 @@
 <template>
-  <form @submit="submission">
+  <form @submit.prevent="submission">
     <BaseNameInput
       label="First Name"
-      v-model="firstName"
+      v-model="user.firstName"
       :maxLength="10"
       :minLength="3"
       placeholder="Enter your first name"
@@ -10,7 +10,7 @@
 
     <BaseNameInput
       label="Last Name"
-      v-model="lastName"
+      v-model="user.lastName"
       :maxLength="10"
       :minLength="3"
       placeholder="Enter your last name"
@@ -18,7 +18,7 @@
 
     <BaseNameInput
       label="Father Name"
-      v-model="fatherName"
+      v-model="user.fatherName"
       :maxLength="20"
       :minLength="10"
       placeholder="Enter your father name"
@@ -26,28 +26,28 @@
 
     <BasePassword
         label="Password"
-        v-model="password"
+        v-model="user.password"
         placeholder="Enter your password"
         :minLength="7"
       />
 
     <BaseDropdown
       label="Country"
-      v-model="selectedCountry"
+      v-model="user.selectedCountry"
       :options="countries"
     />
 
     <BaseDropdown
       label="Company"
-      v-model="selectedCompany"
+      v-model="user.selectedCompany"
       :options="companies"
     />
 
 
     <BasePhone
       label="Mobile Number"
-      :country="selectedCountry"
-      v-model="phoneNo"
+      :country="user.selectedCountry"
+      v-model="user.phoneNo"
     />
 
     <button type="submit">Submit</button>
@@ -55,13 +55,13 @@
   </form>
 
   <div>
-    <p>firstName : {{ firstName }}</p>
-    <p>lastName : {{ lastName }}</p>
-    <p>fatherName : {{ fatherName }}</p>
-    <p>password : {{ password }}</p>
-    <p>country : {{ selectedCountry }}</p>
-    <p>company : {{ selectedCompany }}</p>
-    <p>phone no : {{ phoneNo }}</p>
+    <p>firstName : {{ user.firstName }}</p>
+    <p>lastName : {{ user.lastName }}</p>
+    <p>fatherName : {{ user.fatherName }}</p>
+    <p>password : {{ user.password }}</p>
+    <p>country : {{ user.selectedCountry }}</p>
+    <p>company : {{ user.selectedCompany }}</p>
+    <p>phone no : {{ user.phoneNo }}</p>
   </div>
 
 </template>
@@ -74,30 +74,30 @@ import BasePassword from '../components/FormComponents/BasePassword.vue';
 import BaseDropdown from '@/components/FormComponents/BaseDropdown.vue';
 import BasePhone from '@/components/FormComponents/BasePhone.vue';
 
+const user = ref({
+  firstName: "",
+  lastName: "",
+  fatherName: "",
+  password: "",
+  selectedCountry: "",
+  selectedCompany: "",
+  phoneNo: "",
+});
 
-const firstName = ref('');
-const lastName = ref('');
-const fatherName = ref('');
-const password = ref('');
 
-const selectedCountry = ref('');
 const countries = ['Bangladesh', 'USA'];
-
-const selectedCompany = ref('');
 const companies = ['Google','Microsoft','Apple'];
 
-const phoneNo = ref('')
 
-function submission(event) {
-  event.preventDefault();
+function submission() {
   console.log({
-    firstName: firstName.value,
-    lastName: lastName.value,
-    fatherName: fatherName.value,
-    password: password.value,
-    country: selectedCountry.value,
-    company: selectedCompany.value,
-    phoneNo: phoneNo.value
+    firstName: user.value.firstName,
+    lastName: user.value.lastName,
+    fatherName: user.value.fatherName,
+    password: user.value.password,
+    country: user.value.selectedCountry,
+    company: user.value.selectedCompany,
+    phoneNo: user.value.phoneNo
   });
 }
 

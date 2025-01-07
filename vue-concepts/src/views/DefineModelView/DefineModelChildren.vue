@@ -10,9 +10,11 @@
 const count = defineModel('pc', { required: true });
 const msg = defineModel('wm', { required: true });
 
+const mm2 = defineModel('mm', { required: true });
+
 msg.value = "Message is changed from children"
 
-
+mm2.value = "valvarde";
 
 function update() {
   count.value++
