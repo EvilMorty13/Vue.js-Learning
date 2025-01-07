@@ -38,7 +38,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 
-const localPhone = ref(props.modelValue);
+const localPhone = ref('');
 const prefix = ref('');
 const errorMessage = ref('');
 

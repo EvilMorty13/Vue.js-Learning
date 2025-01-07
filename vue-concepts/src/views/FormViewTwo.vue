@@ -53,13 +53,17 @@
     <button type="submit">Submit</button>
 
   </form>
-  <p>firstName : {{ firstName }}</p>
-  <p>lastName : {{ lastName }}</p>
-  <p>fatherName : {{ fatherName }}</p>
-  <p>password : {{ password }}</p>
-  <p>country : {{ selectedCountry }}</p>
-  <p>company : {{ selectedCompany }}</p>
-  <p>phone no : {{ phoneNo }}</p>
+
+  <div>
+    <p>firstName : {{ firstName }}</p>
+    <p>lastName : {{ lastName }}</p>
+    <p>fatherName : {{ fatherName }}</p>
+    <p>password : {{ password }}</p>
+    <p>country : {{ selectedCountry }}</p>
+    <p>company : {{ selectedCompany }}</p>
+    <p>phone no : {{ phoneNo }}</p>
+  </div>
+
 </template>
 
 
