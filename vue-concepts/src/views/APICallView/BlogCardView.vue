@@ -33,7 +33,7 @@ onMounted(async () => {
     console.error('Error fetching blogs:', error);
   }
 });
-console.log(`sdmf 1`)
+
 </script>
 
 <style scoped>

@@ -10,6 +10,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import BlogCardView from '@/views/APICallView/BlogCardView.vue'
 import BlogCardPostView from '@/views/APICallView/BlogCardPostView.vue'
 import BlogCardAddView from '@/views/APICallView/BlogCardAddView.vue'
+import FormViewTwo from '@/views/FormViewTwo.vue'
 
 let formSubmitted = false;
 
@@ -73,6 +74,11 @@ const router = createRouter({
       path: '/form',
       name: 'form',
       component: () => import('@/views/FormView/FormView.vue'),
+    },
+    {
+      path: '/form2',
+      name: 'form2',
+      component: FormViewTwo,
     },
     {
       path: '/sign-in',

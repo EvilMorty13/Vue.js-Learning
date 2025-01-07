@@ -14,6 +14,7 @@ import { RouterLink, RouterView } from 'vue-router'
       <RouterLink to="/composable" class="nav-link">Composable</RouterLink>
       <RouterLink to="/blog" class="nav-link">Nested Routing</RouterLink>
       <RouterLink to="/form" class="nav-link">Form</RouterLink>
+      <RouterLink to="/form2" class="nav-link">Form 2</RouterLink>
       <RouterLink to="/blog-card" class="nav-link">API Call</RouterLink>
     </nav>
   </header>
