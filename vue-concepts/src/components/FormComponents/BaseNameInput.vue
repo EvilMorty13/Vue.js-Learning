@@ -13,7 +13,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 
 
 const props = defineProps({
@@ -36,8 +35,8 @@ const props = defineProps({
 });
 
 
-const name = defineModel();
-const errorMessage = ref('');
+const name = defineModel('name');
+const errorMessage = defineModel('er');
 
 
 function validateName(){

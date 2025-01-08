@@ -10,7 +10,7 @@
         @input="updatePhoneNumber"
       />
     </div>
-    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+    <p v-if="errorMessage" class="error-msg">{{ errorMessage }}</p>
   </div>
 </template>
 
@@ -29,17 +29,13 @@ const props = defineProps({
   placeholder: {
     type: String,
     default: 'Enter your mobile number',
-  },
-  modelValue: {
-    type: String,
-    default: '', // This is the parent value linked with v-model
-  },
+  }
 });
 
 const localPhone = ref('');
 const prefix = ref('');
-const errorMessage = ref('');
-const completePhoneNo = defineModel()
+const errorMessage = defineModel('er');
+const completePhoneNo = defineModel('phone');
 
 
 
@@ -71,9 +67,14 @@ function updatePhoneNumber() {
     const maxLength = config.digits;
     const phoneNumber = String(localPhone.value);
 
-    if (phoneNumber.length > maxLength) {
+
+    if (phoneNumber.length < maxLength) {
+      errorMessage.value = `There should be ${maxLength} digits for ${props.country}.`;
+    }
+    else if (phoneNumber.length > maxLength) {
       errorMessage.value = `Number should not exceed ${maxLength} digits for ${props.country}.`;
-    } else {
+    }
+    else {
       errorMessage.value = '';
     }
   }
@@ -109,9 +110,9 @@ input:focus {
   outline: none;
 }
 
-.error {
-  color: red;
-  font-size: 0.9rem;
-  margin-top: 5px;
+.error-msg {
+  color: #d9534f;
+  font-size: 12px;
+  margin-top: 4px;
 }
 </style>

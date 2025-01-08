@@ -13,7 +13,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 
 const props = defineProps({
   label: {
@@ -31,8 +30,8 @@ const props = defineProps({
 });
 
 
-const password = defineModel();
-const errorMessage = ref('');
+const password = defineModel('pass');
+const errorMessage = defineModel('er');
 
 
 function validatePassword() {

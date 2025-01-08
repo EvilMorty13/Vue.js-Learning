@@ -2,7 +2,8 @@
   <form @submit.prevent="submission">
     <BaseNameInput
       label="First Name"
-      v-model="user.firstName"
+      v-model:name="user.firstName"
+      v-model:er="error.firstName"
       :maxLength="10"
       :minLength="3"
       placeholder="Enter your first name"
@@ -10,7 +11,8 @@
 
     <BaseNameInput
       label="Last Name"
-      v-model="user.lastName"
+      v-model:name="user.lastName"
+      v-model:er="error.lastName"
       :maxLength="10"
       :minLength="3"
       placeholder="Enter your last name"
@@ -18,7 +20,8 @@
 
     <BaseNameInput
       label="Father Name"
-      v-model="user.fatherName"
+      v-model:name="user.fatherName"
+      v-model:er="error.fatherName"
       :maxLength="20"
       :minLength="10"
       placeholder="Enter your father name"
@@ -26,20 +29,23 @@
 
     <BasePassword
         label="Password"
-        v-model="user.password"
+        v-model:pass="user.password"
+        v-model:er="error.password"
         placeholder="Enter your password"
         :minLength="7"
       />
 
     <BaseDropdown
       label="Country"
-      v-model="user.selectedCountry"
+      v-model:choice="user.selectedCountry"
+      v-model:er="error.selectedCountry"
       :options="countries"
     />
 
     <BaseDropdown
       label="Company"
-      v-model="user.selectedCompany"
+      v-model:choice="user.selectedCompany"
+      v-model:er="error.selectedCompany"
       :options="companies"
     />
 
@@ -47,7 +53,8 @@
     <BasePhone
       label="Mobile Number"
       :country="user.selectedCountry"
-      v-model="user.phoneNo"
+      v-model:phone="user.phoneNo"
+      v-model:er="error.phoneNo"
     />
 
     <button type="submit">Submit</button>
@@ -62,6 +69,16 @@
     <p>country : {{ user.selectedCountry }}</p>
     <p>company : {{ user.selectedCompany }}</p>
     <p>phone no : {{ user.phoneNo }}</p>
+  </div>
+
+  <div>
+    <p>error firstName : {{ error.firstName }}</p>
+    <p>error lastName : {{ error.lastName }}</p>
+    <p>error fatherName : {{ error.fatherName }}</p>
+    <p>error password : {{ error.password }}</p>
+    <p>error country : {{ error.selectedCountry }}</p>
+    <p>error company : {{ error.selectedCompany }}</p>
+    <p>error phone no : {{ error.phoneNo }}</p>
   </div>
 
 </template>
@@ -87,6 +104,19 @@ const user = ref({
 
 const countries = ['Bangladesh', 'USA'];
 const companies = ['Google','Microsoft','Apple'];
+
+
+const error = ref({
+  firstName: null,
+  lastName: null,
+  fatherName: null,
+  password: null,
+  selectedCountry: "Select a country",
+  selectedCompany: "Select a company",
+  phoneNo: null,
+});
+
+
 
 
 function submission() {

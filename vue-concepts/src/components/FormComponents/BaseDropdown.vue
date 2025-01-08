@@ -1,11 +1,12 @@
 <template>
   <div>
     <label>{{ label }}</label>
-    <select v-model="selectedValue">
+    <select v-model="selectedValue" @change="validateOption">
       <option v-for="option in options" :key="option">
           {{ option }}
       </option>
     </select>
+    <p v-if="errorMessage" class="error-msg">{{ errorMessage }}</p>
   </div>
 </template>
 
@@ -22,12 +23,23 @@ defineProps({
   },
 });
 
-const selectedValue = defineModel();
+const selectedValue = defineModel('choice');
+const errorMessage = defineModel('er');
 
-
+function validateOption() {
+  if (selectedValue.value) {
+    errorMessage.value = "";
+  }
+}
 </script>
 
 <style scoped>
+.error-msg {
+  color: #d9534f;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
 label {
   display: block;
   font-weight: bold;
