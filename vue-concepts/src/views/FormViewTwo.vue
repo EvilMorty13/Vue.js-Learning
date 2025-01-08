@@ -85,7 +85,7 @@
 
 
 <script setup>
-import { ref } from 'vue';
+import { ref,computed } from 'vue';
 import BaseNameInput from '../components/FormComponents/BaseNameInput.vue';
 import BasePassword from '../components/FormComponents/BasePassword.vue';
 import BaseDropdown from '@/components/FormComponents/BaseDropdown.vue';
@@ -116,19 +116,32 @@ const error = ref({
   phoneNo: null,
 });
 
-
+const hasErrors = computed(() => {
+  return Object.entries(error.value).some(([key, value]) => {
+    if (key === "phoneNo") {
+      return value !== null && value !== ""; // Allow null or empty string for phoneNo
+    }
+    return value !== ""; // Other fields must not be empty
+  });
+});
 
 
 function submission() {
-  console.log({
-    firstName: user.value.firstName,
-    lastName: user.value.lastName,
-    fatherName: user.value.fatherName,
-    password: user.value.password,
-    country: user.value.selectedCountry,
-    company: user.value.selectedCompany,
-    phoneNo: user.value.phoneNo
-  });
+  if (!hasErrors.value) {
+    console.log({
+      firstName: user.value.firstName,
+      lastName: user.value.lastName,
+      fatherName: user.value.fatherName,
+      password: user.value.password,
+      country: user.value.selectedCountry,
+      company: user.value.selectedCompany,
+      phoneNo: user.value.phoneNo,
+    });
+    alert("Successfully submitted");
+  } else {
+    alert("Input all fields properly");
+    console.log("Input properly");
+  }
 }
 
 </script>
