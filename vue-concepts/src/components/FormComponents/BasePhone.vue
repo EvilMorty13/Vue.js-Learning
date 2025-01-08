@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed } from 'vue';
+import { ref, watch } from 'vue';
 
 const props = defineProps({
   country: {
@@ -36,11 +36,12 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['update:modelValue']);
-
 const localPhone = ref('');
 const prefix = ref('');
 const errorMessage = ref('');
+const completePhoneNo = defineModel()
+
+
 
 const countryConfig = {
   USA: { prefix: '+1', digits: 10 },
@@ -63,11 +64,6 @@ watch(
   { immediate: true }
 );
 
-// Compute the complete phone number
-const completePhoneNo = computed(() => {
-  return prefix.value + localPhone.value;
-});
-
 // Emit updated value to parent whenever the phone number changes
 function updatePhoneNumber() {
   const config = countryConfig[props.country];
@@ -81,9 +77,7 @@ function updatePhoneNumber() {
       errorMessage.value = '';
     }
   }
-
-  // Emit the complete phone number to the parent
-  emit('update:modelValue', completePhoneNo.value);
+  completePhoneNo.value = prefix.value + localPhone.value;
 }
 </script>
 
